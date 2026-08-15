@@ -223,3 +223,6 @@ data/raw/*
 
 data/processed/*
 !data/processed/.gitkeep
+
+# Docs
+docs/
