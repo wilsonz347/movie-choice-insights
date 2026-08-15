@@ -9,18 +9,17 @@ A recommendation system is only useful if its recommendations are relevant to us
 This project evaluates recommendation effectiveness from two perspectives:
 
 1. **Expectation alignment** — Does the system predict what users expect to enjoy?
-2. **Consumption** — Are recommendations associated with users subsequently consuming the recommended movie?
+2. **Consumption** — How often are recommended movies subsequently consumed by users?
 
-A third analysis extends this by testing whether the observed consumption association remains after controlling for other plausible drivers of consumption.
+A third analysis identifies factors associated with subsequent consumption.
 
 ## Key Findings
 
 * The recommendation system **overestimates user expectations by 0.80 rating points on average**.
 * The average absolute prediction error is **0.87 rating points**.
 * Only **6,463 of 1.21M recommendation events (0.53%)** were followed by recorded consumption.
-* Consumption rates varied little across system predicted-rating ranges, providing limited descriptive evidence that higher predicted ratings correlated with higher subsequent consumption rate.
-* Factors such as **movie popularity**, **user activity**, and **genre** are stronger associated with consumption than the system's predicted rating.
-* Because the data is observational, the analysis focuses on **association rather than causal impact**.
+* Higher predicted ratings were associated with slightly lower odds of consumption (**OR = 0.91**, **p = 0.003**).
+* Movie popularity and available follow-up time had the strongest associations with recorded consumption.
 
 ## Analysis
 
@@ -43,7 +42,7 @@ Constructs recommendation-level analysis tables by:
 * Matching each recommendation with the most recent prior user prediction.
 * Identifying whether the user had previously consumed the movie.
 * Attributing a subsequent rating to the most recent preceding recommendation for the same user–movie pair.
-* Preventing repeated rating events from duplicating recommendation events.
+* Ensuring each rating is attributed to at most one recommendation event.
 * Producing `expectation_analysis` and `consumption_analysis` datasets.
 
 ### 5. Recommendation Effectiveness
@@ -52,7 +51,7 @@ Answers the two primary product questions using descriptive and statistical anal
 
 ### 6. Controlled Consumption Analysis
 
-Tests whether the observed association between recommendation and subsequent consumption persists after controlling for other factors that plausibly influence consumption.
+Tests which factors are associated with whether users subsequently consume recommended movies, where consumption is measured by a later user rating.
 
 ## Data
 
@@ -98,21 +97,26 @@ The main rating history is longitudinal: users can rate the same movie multiple 
 
 ## Why This Analysis Matters
 
-The project separates **what the system predicts users will enjoy** from **whether users actually engage with the recommendation**, then examines whether the observed consumption relationship survives adjustment for other factors.
+The project separates **what the system predicts users will enjoy** from **whether users subsequently engage with recommended movies**, then identifies which recommendation, user, movie, and timing factors are associated with recorded consumption.
 
 ## Limitations & Assumptions
 
 This analysis relies on several assumptions:
 
-* **Consumption is proxied by a subsequent rating.** A rating after a recommendation is treated as evidence that the user consumed the movie. Watching without subsequently rating the movie is therefore not observed as consumption.
-* **Recommendations are event-level observations.** Users may receive multiple recommendations for the same movie. When a rating occurs after multiple recommendations, it is attributed to the most recent preceding recommendation for that user–movie pair.
-* **Prior consumption is inferred from rating history.** A valid rating recorded before a recommendation is treated as evidence that the user had previously consumed the movie.
-* **User expectations are time-dependent.** The most recent user prediction before each recommendation is used as the user's expected rating at the time of recommendation.
-* **The data is observational.** The consumption analysis estimates associations and does not establish that recommendations caused users to consume movies.
-* **Unobserved factors may remain.** User preferences, movie availability, timing, exposure, and other behavioral factors may influence consumption but may not be fully captured by the available data.
-* **Longitudinal ratings are preserved.** Because users can change their ratings over time, user–movie pairs are not assumed to be unique observations.
-* **Unequal observation time:** No fixed time window is used for subsequent consumption. Recommendations made later in a user's rating history have less opportunity to be followed by a recorded rating. The logistic regression model addresses this by including days of follow-up time available as a control variable.
+1. **Consumption measure:** A rating after a recommendation is treated as consumption. Watching without rating is not observed.
+
+2. **Repeated recommendations:** If a user receives the same movie more than once, a later rating is linked to the most recent recommendation.
+
+3. **Prior consumption:** A rating before a recommendation indicates the user had previously consumed the movie.
+
+4. **User expectations:** The most recent prediction before a recommendation represents the user’s expected rating.
+
+5. **Time-based controls:** Movie popularity, user activity, and prior exposure are calculated using only information available at the recommendation timestamp.
+
+6. **Follow-up time:** Recommendations with more observed time have more opportunity to receive a later rating; the model controls for this.
+
+7. **Interpretation:** Results show associations, not causal effects. Unmeasured factors may still affect consumption.
 
 ## Transparency & AI Assistance
 
-LLMs were used as a supporting tool throughout the project, primarily to help structure the analysis outline, clarify methodological considerations, troubleshoot code, and assist with portions of code generation. All analysis decisions, assumptions, code, results, and interpretations were reviewed and validated.
+LLMs were used as a supporting tool throughout the project, primarily to help structure the analysis outline, clarify methodological considerations, troubleshoot code, and assist with portions of code generation. All analysis decisions, assumptions, code, results, and interpretations were reviewed and validated by the project author.
