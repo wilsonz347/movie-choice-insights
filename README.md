@@ -1,4 +1,4 @@
-# Movie Recommendation Effectiveness
+# Movie Recommendation Effectiveness Analysis
 
 An applied analysis of whether movie recommendations **match user expectations** and **lead to subsequent consumption**, using the MovieLens Beliefs Dataset.
 
