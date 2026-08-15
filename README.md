@@ -111,3 +111,7 @@ This analysis relies on several assumptions:
 * **Unobserved factors may remain.** User preferences, movie availability, timing, exposure, and other behavioral factors may influence consumption but may not be fully captured by the available data.
 * **Longitudinal ratings are preserved.** Because users can change their ratings over time, user–movie pairs are not assumed to be unique observations.
 * **Unequal observation time:** No fixed time window is used for subsequent consumption. Recommendations made later in a user's rating history have less opportunity to be followed by a recorded rating. 
+
+## Transparency & AI Assistance
+
+LLMs were used as a supporting tool throughout the project, primarily to help structure the analysis outline, clarify methodological considerations, troubleshoot code, and assist with portions of code generation. All analysis decisions, assumptions, code, results, and interpretations were reviewed and validated.
