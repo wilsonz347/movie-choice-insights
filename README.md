@@ -88,7 +88,7 @@ The main rating history is longitudinal: users can rate the same movie multiple 
 │   ├── 05_recommendation_effectiveness_analysis.ipynb
 │   └── 06_controlled_consumption_analysis.ipynb
 ├── scripts/
-│   ├── fetch_data.py
+│   └── fetch_data.py
 ├── .gitignore
 ├── LICENSE
 ├── README.md
