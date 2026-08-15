@@ -18,7 +18,8 @@ A third analysis extends this by testing whether the observed consumption associ
 * The recommendation system **overestimates user expectations by 0.80 rating points on average**.
 * The average absolute prediction error is **0.87 rating points**.
 * Only **6,463 of 1.21M recommendation events (0.53%)** were followed by recorded consumption.
-* Consumption rates varied little across system predicted-rating ranges, providing limited descriptive evidence that higher predicted ratings translated into higher subsequent consumption.
+* Consumption rates varied little across system predicted-rating ranges, providing limited descriptive evidence that higher predicted ratings correlated with higher subsequent consumption rate.
+* Factors such as **movie popularity**, **user activity**, and **genre** are stronger associated with consumption than the system's predicted rating.
 * Because the data is observational, the analysis focuses on **association rather than causal impact**.
 
 ## Analysis
@@ -110,7 +111,7 @@ This analysis relies on several assumptions:
 * **The data is observational.** The consumption analysis estimates associations and does not establish that recommendations caused users to consume movies.
 * **Unobserved factors may remain.** User preferences, movie availability, timing, exposure, and other behavioral factors may influence consumption but may not be fully captured by the available data.
 * **Longitudinal ratings are preserved.** Because users can change their ratings over time, user–movie pairs are not assumed to be unique observations.
-* **Unequal observation time:** No fixed time window is used for subsequent consumption. Recommendations made later in a user's rating history have less opportunity to be followed by a recorded rating. 
+* **Unequal observation time:** No fixed time window is used for subsequent consumption. Recommendations made later in a user's rating history have less opportunity to be followed by a recorded rating. The logistic regression model addresses this by including days of follow-up time available as a control variable.
 
 ## Transparency & AI Assistance
 
