@@ -110,3 +110,4 @@ This analysis relies on several assumptions:
 * **The data is observational.** The consumption analysis estimates associations and does not establish that recommendations caused users to consume movies.
 * **Unobserved factors may remain.** User preferences, movie availability, timing, exposure, and other behavioral factors may influence consumption but may not be fully captured by the available data.
 * **Longitudinal ratings are preserved.** Because users can change their ratings over time, user–movie pairs are not assumed to be unique observations.
+* **Unequal observation time:** No fixed time window is used for subsequent consumption. Recommendations made later in a user's rating history have less opportunity to be followed by a recorded rating. 
